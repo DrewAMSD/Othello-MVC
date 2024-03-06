@@ -1,4 +1,4 @@
-package com.mrjaffesclass.apcs.mvc.template;
+package mvc.tictactoe;
 import com.mrjaffesclass.apcs.messenger.*;
 
 /**
