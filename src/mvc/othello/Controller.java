@@ -1,4 +1,4 @@
-package mvc.tictactoe;
+package mvc.othello;
 import com.mrjaffesclass.apcs.messenger.*;
 
 /**
