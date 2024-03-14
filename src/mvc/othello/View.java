@@ -28,21 +28,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
    */
   public void init() {
     // Subscribe to messages here
-    this.mvcMessaging.subscribe("boardChange", this);
-    this.mvcMessaging.subscribe("gameOver", this);
-    this.mvcMessaging.subscribe("gameWon", this);
-    this.mvcMessaging.subscribe("draw", this);
-    this.mvcMessaging.subscribe("turnChanged", this);
     
-    jBtn00.setName("00");
-    jBtn01.setName("01");
-    jBtn02.setName("02");
-    jBtn10.setName("10");
-    jBtn11.setName("11");
-    jBtn12.setName("12");
-    jBtn20.setName("20");
-    jBtn21.setName("21");
-    jBtn22.setName("22");
 
   }
   
@@ -53,28 +39,12 @@ public class View extends javax.swing.JFrame implements MessageHandler {
     } else {
       System.out.println("MSG: received by view: "+messageName+" | No data sent");
     }
-    if (messageName.equals("boardChange")) {
-      // Get the message payload and cast it as a 2D string array since we
-      // know that the model is sending out the board data with the message
-      String[][] board = (String[][])messagePayload;
-      // Now set the button text with the contents of the board
-      jBtn00.setText(board[0][0]);
-      jBtn01.setText(board[0][1]);
-      jBtn02.setText(board[0][2]);
-      jBtn10.setText(board[1][0]);
-      jBtn11.setText(board[1][1]);
-      jBtn12.setText(board[1][2]);
-      jBtn20.setText(board[2][0]);
-      jBtn21.setText(board[2][1]);
-      jBtn22.setText(board[2][2]);
-    } else if (messageName.equals("gameWon")) {
-        String winner = (String) messagePayload;
-        winnerLbl.setText(winner+" WINS!!");
-    } else if (messageName.equals("draw")) {
-        winnerLbl.setText("Draw!!");
-    } else if (messageName.equals("turnChanged")) {
-        String turn = (String) messagePayload;
-        turnLbl.setText(turn+"'s Turn");
+    
+    switch (messageName) {
+        
+        default: {
+            break;
+        }
     }
   }
 
@@ -88,187 +58,23 @@ public class View extends javax.swing.JFrame implements MessageHandler {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        winnerLbl = new javax.swing.JLabel();
-        turnLbl = new javax.swing.JLabel();
-        newGameBtn = new javax.swing.JButton();
-        jBtn00 = new javax.swing.JButton();
-        jBtn01 = new javax.swing.JButton();
-        jBtn02 = new javax.swing.JButton();
-        jBtn10 = new javax.swing.JButton();
-        jBtn11 = new javax.swing.JButton();
-        jBtn12 = new javax.swing.JButton();
-        jBtn20 = new javax.swing.JButton();
-        jBtn21 = new javax.swing.JButton();
-        jBtn22 = new javax.swing.JButton();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        winnerLbl.setFont(new java.awt.Font("Liberation Sans", 0, 20)); // NOI18N
-
-        turnLbl.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
-        turnLbl.setText("O's Turn");
-
-        newGameBtn.setText("New Game");
-        newGameBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newGameBtnActionPerformed(evt);
-            }
-        });
-
-        jBtn00.setFont(new java.awt.Font("Liberation Sans", 0, 36)); // NOI18N
-        jBtn00.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClicked(evt);
-            }
-        });
-
-        jBtn01.setFont(new java.awt.Font("Liberation Sans", 0, 36)); // NOI18N
-        jBtn01.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClicked(evt);
-            }
-        });
-
-        jBtn02.setFont(new java.awt.Font("Liberation Sans", 0, 36)); // NOI18N
-        jBtn02.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClicked(evt);
-            }
-        });
-
-        jBtn10.setFont(new java.awt.Font("Liberation Sans", 0, 36)); // NOI18N
-        jBtn10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClicked(evt);
-            }
-        });
-
-        jBtn11.setFont(new java.awt.Font("Liberation Sans", 0, 36)); // NOI18N
-        jBtn11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClicked(evt);
-            }
-        });
-
-        jBtn12.setFont(new java.awt.Font("Liberation Sans", 0, 36)); // NOI18N
-        jBtn12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClicked(evt);
-            }
-        });
-
-        jBtn20.setFont(new java.awt.Font("Liberation Sans", 0, 36)); // NOI18N
-        jBtn20.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClicked(evt);
-            }
-        });
-
-        jBtn21.setFont(new java.awt.Font("Liberation Sans", 0, 36)); // NOI18N
-        jBtn21.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClicked(evt);
-            }
-        });
-
-        jBtn22.setFont(new java.awt.Font("Liberation Sans", 0, 36)); // NOI18N
-        jBtn22.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClicked(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jBtn20, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
-                    .addComponent(jBtn10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jBtn00, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jBtn01, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBtn02, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jBtn11, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBtn21, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jBtn22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jBtn12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(winnerLbl)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(turnLbl)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(newGameBtn)
-                .addContainerGap())
+            .addGap(0, 700, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(winnerLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(newGameBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(turnLbl)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtn01, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtn02, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtn00, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jBtn10, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jBtn11, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jBtn21, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jBtn20, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jBtn22, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jBtn12, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 750, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    private void btnClicked(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClicked
-        JButton button = (JButton)evt.getSource();
-        this.mvcMessaging.notify("playerMove", button.getName());
-    }//GEN-LAST:event_btnClicked
-
-    private void newGameBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newGameBtnActionPerformed
-        // TODO add your handling code here:
-        this.mvcMessaging.notify("newGame", "");
-        winnerLbl.setText("");
-        turnLbl.setText("O's Turn");
-    }//GEN-LAST:event_newGameBtnActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBtn00;
-    private javax.swing.JButton jBtn01;
-    private javax.swing.JButton jBtn02;
-    private javax.swing.JButton jBtn10;
-    private javax.swing.JButton jBtn11;
-    private javax.swing.JButton jBtn12;
-    private javax.swing.JButton jBtn20;
-    private javax.swing.JButton jBtn21;
-    private javax.swing.JButton jBtn22;
-    private javax.swing.JButton newGameBtn;
-    private javax.swing.JLabel turnLbl;
-    private javax.swing.JLabel winnerLbl;
     // End of variables declaration//GEN-END:variables
 }
