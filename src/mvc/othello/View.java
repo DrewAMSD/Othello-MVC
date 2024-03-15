@@ -18,7 +18,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
    * @param messages mvcMessaging object
    */
   public View(Messenger messages) {
-    mvcMessaging = messages;   // Save the calling controller instance
+    this.mvcMessaging = messages;   // Save the calling controller instance
     initComponents();           // Create and init the GUI components
   }
   
@@ -270,7 +270,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
         // TODO add your handling code here:
         JButton button = (JButton)evt.getSource();
         //get location of button
-        mvcMessaging.notify("btnClicked", "a");
+        this.mvcMessaging.notify("btnClicked", "a");
     }//GEN-LAST:event_btnClicked
     
 

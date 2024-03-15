@@ -21,7 +21,7 @@ public class Model implements MessageHandler {
    *   local messages between Model, View, and controller
    */
   public Model(Messenger messages) {
-    mvcMessaging = messages;
+    this.mvcMessaging = messages;
     
   }
   
@@ -31,7 +31,7 @@ public class Model implements MessageHandler {
   public void init() {
     this.newGame();
     //subscribe to messages here
-    mvcMessaging.subscribe("btnClicked", this);
+    this.mvcMessaging.subscribe("btnClicked", this);
   }
   
     /**
