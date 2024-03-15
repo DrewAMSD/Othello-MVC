@@ -31,6 +31,7 @@ public class Model implements MessageHandler {
   public void init() {
     this.newGame();
     //subscribe to messages here
+    mvcMessaging.subscribe("btnClicked", this);
   }
   
     /**
@@ -52,7 +53,9 @@ public class Model implements MessageHandler {
 
         // playerMove message handler
         switch (messageName) {
-            //case "messageName": {}
+            case "btnClicked": {
+                //do something
+            }
 
             default: {
                 break;
