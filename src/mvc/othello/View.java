@@ -5,6 +5,9 @@
 package mvc.othello;
 import com.mrjaffesclass.apcs.messenger.*;
 import javax.swing.JButton;
+import javax.swing.ImageIcon;
+
+import java.awt.Image;
 /**
  *
  * @author student
@@ -28,8 +31,142 @@ public class View extends javax.swing.JFrame implements MessageHandler {
    */
   public void init() {
     // Subscribe to messages here
-    
 
+    //add icons to images
+    jButton1.setIcon(Constants.EMPTY_ICON);
+    jButton2.setIcon(Constants.EMPTY_ICON);
+    jButton3.setIcon(Constants.EMPTY_ICON);
+    jButton4.setIcon(Constants.EMPTY_ICON);
+    jButton5.setIcon(Constants.EMPTY_ICON);
+    jButton6.setIcon(Constants.EMPTY_ICON);
+    jButton7.setIcon(Constants.EMPTY_ICON);
+    jButton8.setIcon(Constants.EMPTY_ICON);
+    jButton9.setIcon(Constants.EMPTY_ICON);
+    jButton10.setIcon(Constants.EMPTY_ICON);
+    jButton11.setIcon(Constants.EMPTY_ICON);
+    jButton12.setIcon(Constants.EMPTY_ICON);
+    jButton13.setIcon(Constants.EMPTY_ICON);
+    jButton14.setIcon(Constants.EMPTY_ICON);
+    jButton15.setIcon(Constants.EMPTY_ICON);
+    jButton16.setIcon(Constants.EMPTY_ICON);
+    jButton17.setIcon(Constants.EMPTY_ICON);
+    jButton18.setIcon(Constants.EMPTY_ICON);
+    jButton19.setIcon(Constants.EMPTY_ICON);
+    jButton20.setIcon(Constants.EMPTY_ICON);
+    jButton21.setIcon(Constants.EMPTY_ICON);
+    jButton22.setIcon(Constants.EMPTY_ICON);
+    jButton23.setIcon(Constants.EMPTY_ICON);
+    jButton24.setIcon(Constants.EMPTY_ICON);
+    jButton25.setIcon(Constants.EMPTY_ICON);
+    jButton26.setIcon(Constants.EMPTY_ICON);
+    jButton27.setIcon(Constants.EMPTY_ICON);
+    //starting with white and black space
+    jButton28.setIcon(Constants.WHITE_ICON);
+    jButton29.setIcon(Constants.BLACK_ICON);
+    //
+    jButton30.setIcon(Constants.EMPTY_ICON);
+    jButton31.setIcon(Constants.EMPTY_ICON);
+    jButton32.setIcon(Constants.EMPTY_ICON);
+    jButton33.setIcon(Constants.EMPTY_ICON);
+    jButton34.setIcon(Constants.EMPTY_ICON);
+    jButton35.setIcon(Constants.EMPTY_ICON);
+    //starting with white and black space
+    jButton36.setIcon(Constants.BLACK_ICON);
+    jButton37.setIcon(Constants.WHITE_ICON);
+    //
+    jButton38.setIcon(Constants.EMPTY_ICON);
+    jButton39.setIcon(Constants.EMPTY_ICON);
+    jButton40.setIcon(Constants.EMPTY_ICON);
+    jButton41.setIcon(Constants.EMPTY_ICON);
+    jButton42.setIcon(Constants.EMPTY_ICON);
+    jButton43.setIcon(Constants.EMPTY_ICON);
+    jButton44.setIcon(Constants.EMPTY_ICON);
+    jButton45.setIcon(Constants.EMPTY_ICON);
+    jButton46.setIcon(Constants.EMPTY_ICON);
+    jButton47.setIcon(Constants.EMPTY_ICON);
+    jButton48.setIcon(Constants.EMPTY_ICON);
+    jButton49.setIcon(Constants.EMPTY_ICON);
+    jButton50.setIcon(Constants.EMPTY_ICON);
+    jButton51.setIcon(Constants.EMPTY_ICON);
+    jButton52.setIcon(Constants.EMPTY_ICON);
+    jButton53.setIcon(Constants.EMPTY_ICON);
+    jButton54.setIcon(Constants.EMPTY_ICON);
+    jButton55.setIcon(Constants.EMPTY_ICON);
+    jButton56.setIcon(Constants.EMPTY_ICON);
+    jButton57.setIcon(Constants.EMPTY_ICON);
+    jButton58.setIcon(Constants.EMPTY_ICON);
+    jButton59.setIcon(Constants.EMPTY_ICON);
+    jButton60.setIcon(Constants.EMPTY_ICON);
+    jButton61.setIcon(Constants.EMPTY_ICON);
+    jButton62.setIcon(Constants.EMPTY_ICON);
+    jButton63.setIcon(Constants.EMPTY_ICON);
+    jButton64.setIcon(Constants.EMPTY_ICON);
+    
+    //give each button a name
+    jButton1.setName("1");
+    jButton2.setName("2");
+    jButton3.setName("3");
+    jButton4.setName("4");
+    jButton5.setName("5");
+    jButton6.setName("6");
+    jButton7.setName("7");
+    jButton8.setName("8");
+    jButton9.setName("9");
+    jButton10.setName("10");
+    jButton11.setName("11");
+    jButton12.setName("12");
+    jButton13.setName("13");
+    jButton14.setName("14");
+    jButton15.setName("15");
+    jButton16.setName("16");
+    jButton17.setName("17");
+    jButton18.setName("18");
+    jButton19.setName("19");
+    jButton20.setName("20");
+    jButton21.setName("21");
+    jButton22.setName("22");
+    jButton23.setName("23");
+    jButton24.setName("24");
+    jButton25.setName("25");
+    jButton26.setName("26");
+    jButton27.setName("27");
+    jButton28.setName("28");
+    jButton29.setName("29");
+    jButton30.setName("30");
+    jButton31.setName("31");
+    jButton32.setName("32");
+    jButton33.setName("33");
+    jButton34.setName("34");
+    jButton35.setName("35");
+    jButton36.setName("36");
+    jButton37.setName("37");
+    jButton38.setName("38");
+    jButton39.setName("39");
+    jButton40.setName("40");
+    jButton41.setName("41");
+    jButton42.setName("42");
+    jButton43.setName("43");
+    jButton44.setName("44");
+    jButton45.setName("45");
+    jButton46.setName("46");
+    jButton47.setName("47");
+    jButton48.setName("48");
+    jButton49.setName("49");
+    jButton50.setName("50");
+    jButton51.setName("51");
+    jButton52.setName("52");
+    jButton53.setName("53");
+    jButton54.setName("54");
+    jButton55.setName("55");
+    jButton56.setName("56");
+    jButton57.setName("57");
+    jButton58.setName("58");
+    jButton59.setName("59");
+    jButton60.setName("60");
+    jButton61.setName("61");
+    jButton62.setName("62");
+    jButton63.setName("63");
+    jButton64.setName("64");
   }
   
   @Override
@@ -125,7 +262,16 @@ public class View extends javax.swing.JFrame implements MessageHandler {
         jButton64 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(0, 0, 0));
+        setMaximumSize(new java.awt.Dimension(660, 740));
+        setMinimumSize(new java.awt.Dimension(660, 740));
+        setPreferredSize(new java.awt.Dimension(660, 740));
+        setResizable(false);
 
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel1.setMaximumSize(new java.awt.Dimension(640, 640));
+        jPanel1.setMinimumSize(new java.awt.Dimension(640, 640));
+        jPanel1.setPreferredSize(new java.awt.Dimension(640, 640));
         jPanel1.setLayout(new java.awt.GridLayout(8, 8));
 
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -183,13 +329,61 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
         jPanel1.add(jButton8);
+
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClicked(evt);
+            }
+        });
         jPanel1.add(jButton9);
+
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClicked(evt);
+            }
+        });
         jPanel1.add(jButton10);
+
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClicked(evt);
+            }
+        });
         jPanel1.add(jButton11);
+
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClicked(evt);
+            }
+        });
         jPanel1.add(jButton12);
+
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClicked(evt);
+            }
+        });
         jPanel1.add(jButton13);
+
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClicked(evt);
+            }
+        });
         jPanel1.add(jButton14);
+
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClicked(evt);
+            }
+        });
         jPanel1.add(jButton15);
+
+        jButton16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClicked(evt);
+            }
+        });
         jPanel1.add(jButton16);
         jPanel1.add(jButton17);
         jPanel1.add(jButton18);
@@ -252,15 +446,15 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(55, 55, 55)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
@@ -270,7 +464,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
         // TODO add your handling code here:
         JButton button = (JButton)evt.getSource();
         //get location of button
-        this.mvcMessaging.notify("btnClicked", "a");
+        this.mvcMessaging.notify("btnClicked", button.getName());
     }//GEN-LAST:event_btnClicked
     
 
