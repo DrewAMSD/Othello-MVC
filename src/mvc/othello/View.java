@@ -33,7 +33,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
     this.panel[7] = new javax.swing.JButton[] {jButton57, jButton58, jButton59, jButton60, jButton61, jButton62, jButton63, jButton64};
     
     //add event listeners
-    for (int row = 0; row < Constants.BOARD_SIZE; row++) {
+    for (int row = 4; row < Constants.BOARD_SIZE; row++) {
         for (int col = 0; col < Constants.BOARD_SIZE; col++) {
             this.panel[row][col].addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
