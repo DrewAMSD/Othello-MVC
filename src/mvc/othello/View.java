@@ -12,7 +12,7 @@ import javax.swing.JButton;
 public class View extends javax.swing.JFrame implements MessageHandler {
 
   private final Messenger mvcMessaging;
-  private javax.swing.JButton[][] board;
+  private javax.swing.JButton[][] panel;
   
   /**
    * Creates a new view
@@ -22,15 +22,15 @@ public class View extends javax.swing.JFrame implements MessageHandler {
     this.mvcMessaging = messages;   // Save the calling controller instance
     initComponents();           // Create and init the GUI components
     
-    this.board = new javax.swing.JButton[8][8];
-    this.board[0] = new javax.swing.JButton[] {jButton1, jButton2, jButton3, jButton4, jButton5, jButton6, jButton7, jButton8};
-    this.board[1] = new javax.swing.JButton[] {jButton9, jButton10, jButton11, jButton12, jButton13, jButton14, jButton15, jButton16};
-    this.board[2] = new javax.swing.JButton[] {jButton17, jButton18, jButton19, jButton20, jButton21, jButton22, jButton23, jButton24};
-    this.board[3] = new javax.swing.JButton[] {jButton25, jButton26, jButton27, jButton28, jButton29, jButton30, jButton31, jButton32};
-    this.board[4] = new javax.swing.JButton[] {jButton33, jButton34, jButton35, jButton36, jButton37, jButton38, jButton39, jButton40};
-    this.board[5] = new javax.swing.JButton[] {jButton41, jButton42, jButton43, jButton44, jButton45, jButton46, jButton47, jButton48};
-    this.board[6] = new javax.swing.JButton[] {jButton49, jButton50, jButton51, jButton52, jButton53, jButton54, jButton55, jButton56};
-    this.board[7] = new javax.swing.JButton[] {jButton57, jButton58, jButton59, jButton60, jButton61, jButton62, jButton63, jButton64};
+    this.panel = new javax.swing.JButton[8][8];
+    this.panel[0] = new javax.swing.JButton[] {jButton1, jButton2, jButton3, jButton4, jButton5, jButton6, jButton7, jButton8};
+    this.panel[1] = new javax.swing.JButton[] {jButton9, jButton10, jButton11, jButton12, jButton13, jButton14, jButton15, jButton16};
+    this.panel[2] = new javax.swing.JButton[] {jButton17, jButton18, jButton19, jButton20, jButton21, jButton22, jButton23, jButton24};
+    this.panel[3] = new javax.swing.JButton[] {jButton25, jButton26, jButton27, jButton28, jButton29, jButton30, jButton31, jButton32};
+    this.panel[4] = new javax.swing.JButton[] {jButton33, jButton34, jButton35, jButton36, jButton37, jButton38, jButton39, jButton40};
+    this.panel[5] = new javax.swing.JButton[] {jButton41, jButton42, jButton43, jButton44, jButton45, jButton46, jButton47, jButton48};
+    this.panel[6] = new javax.swing.JButton[] {jButton49, jButton50, jButton51, jButton52, jButton53, jButton54, jButton55, jButton56};
+    this.panel[7] = new javax.swing.JButton[] {jButton57, jButton58, jButton59, jButton60, jButton61, jButton62, jButton63, jButton64};
   }
   
    /**
@@ -47,17 +47,15 @@ public class View extends javax.swing.JFrame implements MessageHandler {
      //add icons and names to buttons
     for (int row = 0; row < Constants.BOARD_SIZE; row++) {
         for (int col = 0; col < Constants.BOARD_SIZE; col++) {
-            board[row][col].setIcon(Constants.EMPTY_ICON);
-            board[row][col].setName(""+row+col+"");
+            this.panel[row][col].setIcon(Constants.EMPTY_ICON);
+            this.panel[row][col].setName(""+row+col+"");
         }
     }
-    //starting with white and black space
-    jButton28.setIcon(Constants.WHITE_ICON);
-    jButton29.setIcon(Constants.BLACK_ICON);
-    //
-    //starting with white and black space
-    jButton36.setIcon(Constants.BLACK_ICON);
-    jButton37.setIcon(Constants.WHITE_ICON);
+    //starting with white and black in the middle
+    this.panel[3][3].setIcon(Constants.WHITE_ICON);
+    this.panel[3][4].setIcon(Constants.BLACK_ICON);
+    this.panel[4][3].setIcon(Constants.BLACK_ICON);
+    this.panel[4][4].setIcon(Constants.WHITE_ICON);
     //
   }
   
