@@ -384,6 +384,12 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
         jPanel1.add(jButton30);
+
+        jButton31.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClicked(evt);
+            }
+        });
         jPanel1.add(jButton31);
 
         jButton32.addActionListener(new java.awt.event.ActionListener() {
