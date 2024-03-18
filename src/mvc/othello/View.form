@@ -156,16 +156,34 @@
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton17">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton18">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton19">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton20">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton21">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton22">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton23">
           <Events>
@@ -173,22 +191,46 @@
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton24">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton25">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton26">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton27">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton28">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton29">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton30">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton31">
         </Component>
         <Component class="javax.swing.JButton" name="jButton32">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton33">
         </Component>

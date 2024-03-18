@@ -31,6 +31,17 @@ public class View extends javax.swing.JFrame implements MessageHandler {
     this.panel[5] = new javax.swing.JButton[] {jButton41, jButton42, jButton43, jButton44, jButton45, jButton46, jButton47, jButton48};
     this.panel[6] = new javax.swing.JButton[] {jButton49, jButton50, jButton51, jButton52, jButton53, jButton54, jButton55, jButton56};
     this.panel[7] = new javax.swing.JButton[] {jButton57, jButton58, jButton59, jButton60, jButton61, jButton62, jButton63, jButton64};
+    
+    //add event listeners
+    for (int row = 0; row < Constants.BOARD_SIZE; row++) {
+        for (int col = 0; col < Constants.BOARD_SIZE; col++) {
+            this.panel[row][col].addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                            btnClicked(evt);
+                        }
+                    });
+        }
+    }
   }
   
    /**
@@ -275,11 +286,47 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
         jPanel1.add(jButton16);
+
+        jButton17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClicked(evt);
+            }
+        });
         jPanel1.add(jButton17);
+
+        jButton18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClicked(evt);
+            }
+        });
         jPanel1.add(jButton18);
+
+        jButton19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClicked(evt);
+            }
+        });
         jPanel1.add(jButton19);
+
+        jButton20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClicked(evt);
+            }
+        });
         jPanel1.add(jButton20);
+
+        jButton21.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClicked(evt);
+            }
+        });
         jPanel1.add(jButton21);
+
+        jButton22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClicked(evt);
+            }
+        });
         jPanel1.add(jButton22);
 
         jButton23.addActionListener(new java.awt.event.ActionListener() {
@@ -288,14 +335,62 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             }
         });
         jPanel1.add(jButton23);
+
+        jButton24.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClicked(evt);
+            }
+        });
         jPanel1.add(jButton24);
+
+        jButton25.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClicked(evt);
+            }
+        });
         jPanel1.add(jButton25);
+
+        jButton26.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClicked(evt);
+            }
+        });
         jPanel1.add(jButton26);
+
+        jButton27.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClicked(evt);
+            }
+        });
         jPanel1.add(jButton27);
+
+        jButton28.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClicked(evt);
+            }
+        });
         jPanel1.add(jButton28);
+
+        jButton29.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClicked(evt);
+            }
+        });
         jPanel1.add(jButton29);
+
+        jButton30.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClicked(evt);
+            }
+        });
         jPanel1.add(jButton30);
         jPanel1.add(jButton31);
+
+        jButton32.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClicked(evt);
+            }
+        });
         jPanel1.add(jButton32);
         jPanel1.add(jButton33);
         jPanel1.add(jButton34);
@@ -349,15 +444,13 @@ public class View extends javax.swing.JFrame implements MessageHandler {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnClicked(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClicked
-        // TODO add your handling code here:
-        JButton button = (JButton)evt.getSource();
-        //get location of button
-        this.mvcMessaging.notify("btnClicked", button.getName());
-    }//GEN-LAST:event_btnClicked
     
-
+    private void btnClicked(java.awt.event.ActionEvent evt) {
+        JButton button = (JButton)evt.getSource();
+        this.mvcMessaging.notify("btnClicked", button.getName());
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
