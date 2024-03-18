@@ -5,9 +5,6 @@
 package mvc.othello;
 import com.mrjaffesclass.apcs.messenger.*;
 import javax.swing.JButton;
-import javax.swing.ImageIcon;
-
-import java.awt.Image;
 /**
  *
  * @author student
@@ -15,6 +12,7 @@ import java.awt.Image;
 public class View extends javax.swing.JFrame implements MessageHandler {
 
   private final Messenger mvcMessaging;
+  private javax.swing.JButton[][] board;
   
   /**
    * Creates a new view
@@ -23,6 +21,16 @@ public class View extends javax.swing.JFrame implements MessageHandler {
   public View(Messenger messages) {
     this.mvcMessaging = messages;   // Save the calling controller instance
     initComponents();           // Create and init the GUI components
+    
+    this.board = new javax.swing.JButton[8][8];
+    this.board[0] = new javax.swing.JButton[] {jButton1, jButton2, jButton3, jButton4, jButton5, jButton6, jButton7, jButton8};
+    this.board[1] = new javax.swing.JButton[] {jButton9, jButton10, jButton11, jButton12, jButton13, jButton14, jButton15, jButton16};
+    this.board[2] = new javax.swing.JButton[] {jButton17, jButton18, jButton19, jButton20, jButton21, jButton22, jButton23, jButton24};
+    this.board[3] = new javax.swing.JButton[] {jButton25, jButton26, jButton27, jButton28, jButton29, jButton30, jButton31, jButton32};
+    this.board[4] = new javax.swing.JButton[] {jButton33, jButton34, jButton35, jButton36, jButton37, jButton38, jButton39, jButton40};
+    this.board[5] = new javax.swing.JButton[] {jButton41, jButton42, jButton43, jButton44, jButton45, jButton46, jButton47, jButton48};
+    this.board[6] = new javax.swing.JButton[] {jButton49, jButton50, jButton51, jButton52, jButton53, jButton54, jButton55, jButton56};
+    this.board[7] = new javax.swing.JButton[] {jButton57, jButton58, jButton59, jButton60, jButton61, jButton62, jButton63, jButton64};
   }
   
    /**
@@ -32,141 +40,25 @@ public class View extends javax.swing.JFrame implements MessageHandler {
   public void init() {
     // Subscribe to messages here
 
-    //add icons to images
-    jButton1.setIcon(Constants.EMPTY_ICON);
-    jButton2.setIcon(Constants.EMPTY_ICON);
-    jButton3.setIcon(Constants.EMPTY_ICON);
-    jButton4.setIcon(Constants.EMPTY_ICON);
-    jButton5.setIcon(Constants.EMPTY_ICON);
-    jButton6.setIcon(Constants.EMPTY_ICON);
-    jButton7.setIcon(Constants.EMPTY_ICON);
-    jButton8.setIcon(Constants.EMPTY_ICON);
-    jButton9.setIcon(Constants.EMPTY_ICON);
-    jButton10.setIcon(Constants.EMPTY_ICON);
-    jButton11.setIcon(Constants.EMPTY_ICON);
-    jButton12.setIcon(Constants.EMPTY_ICON);
-    jButton13.setIcon(Constants.EMPTY_ICON);
-    jButton14.setIcon(Constants.EMPTY_ICON);
-    jButton15.setIcon(Constants.EMPTY_ICON);
-    jButton16.setIcon(Constants.EMPTY_ICON);
-    jButton17.setIcon(Constants.EMPTY_ICON);
-    jButton18.setIcon(Constants.EMPTY_ICON);
-    jButton19.setIcon(Constants.EMPTY_ICON);
-    jButton20.setIcon(Constants.EMPTY_ICON);
-    jButton21.setIcon(Constants.EMPTY_ICON);
-    jButton22.setIcon(Constants.EMPTY_ICON);
-    jButton23.setIcon(Constants.EMPTY_ICON);
-    jButton24.setIcon(Constants.EMPTY_ICON);
-    jButton25.setIcon(Constants.EMPTY_ICON);
-    jButton26.setIcon(Constants.EMPTY_ICON);
-    jButton27.setIcon(Constants.EMPTY_ICON);
+    newGame();
+  }
+  
+  private void newGame() {
+     //add icons and names to buttons
+    for (int row = 0; row < Constants.BOARD_SIZE; row++) {
+        for (int col = 0; col < Constants.BOARD_SIZE; col++) {
+            board[row][col].setIcon(Constants.EMPTY_ICON);
+            board[row][col].setName(""+row+col+"");
+        }
+    }
     //starting with white and black space
     jButton28.setIcon(Constants.WHITE_ICON);
     jButton29.setIcon(Constants.BLACK_ICON);
     //
-    jButton30.setIcon(Constants.EMPTY_ICON);
-    jButton31.setIcon(Constants.EMPTY_ICON);
-    jButton32.setIcon(Constants.EMPTY_ICON);
-    jButton33.setIcon(Constants.EMPTY_ICON);
-    jButton34.setIcon(Constants.EMPTY_ICON);
-    jButton35.setIcon(Constants.EMPTY_ICON);
     //starting with white and black space
     jButton36.setIcon(Constants.BLACK_ICON);
     jButton37.setIcon(Constants.WHITE_ICON);
     //
-    jButton38.setIcon(Constants.EMPTY_ICON);
-    jButton39.setIcon(Constants.EMPTY_ICON);
-    jButton40.setIcon(Constants.EMPTY_ICON);
-    jButton41.setIcon(Constants.EMPTY_ICON);
-    jButton42.setIcon(Constants.EMPTY_ICON);
-    jButton43.setIcon(Constants.EMPTY_ICON);
-    jButton44.setIcon(Constants.EMPTY_ICON);
-    jButton45.setIcon(Constants.EMPTY_ICON);
-    jButton46.setIcon(Constants.EMPTY_ICON);
-    jButton47.setIcon(Constants.EMPTY_ICON);
-    jButton48.setIcon(Constants.EMPTY_ICON);
-    jButton49.setIcon(Constants.EMPTY_ICON);
-    jButton50.setIcon(Constants.EMPTY_ICON);
-    jButton51.setIcon(Constants.EMPTY_ICON);
-    jButton52.setIcon(Constants.EMPTY_ICON);
-    jButton53.setIcon(Constants.EMPTY_ICON);
-    jButton54.setIcon(Constants.EMPTY_ICON);
-    jButton55.setIcon(Constants.EMPTY_ICON);
-    jButton56.setIcon(Constants.EMPTY_ICON);
-    jButton57.setIcon(Constants.EMPTY_ICON);
-    jButton58.setIcon(Constants.EMPTY_ICON);
-    jButton59.setIcon(Constants.EMPTY_ICON);
-    jButton60.setIcon(Constants.EMPTY_ICON);
-    jButton61.setIcon(Constants.EMPTY_ICON);
-    jButton62.setIcon(Constants.EMPTY_ICON);
-    jButton63.setIcon(Constants.EMPTY_ICON);
-    jButton64.setIcon(Constants.EMPTY_ICON);
-    
-    //give each button a name
-    jButton1.setName("1");
-    jButton2.setName("2");
-    jButton3.setName("3");
-    jButton4.setName("4");
-    jButton5.setName("5");
-    jButton6.setName("6");
-    jButton7.setName("7");
-    jButton8.setName("8");
-    jButton9.setName("9");
-    jButton10.setName("10");
-    jButton11.setName("11");
-    jButton12.setName("12");
-    jButton13.setName("13");
-    jButton14.setName("14");
-    jButton15.setName("15");
-    jButton16.setName("16");
-    jButton17.setName("17");
-    jButton18.setName("18");
-    jButton19.setName("19");
-    jButton20.setName("20");
-    jButton21.setName("21");
-    jButton22.setName("22");
-    jButton23.setName("23");
-    jButton24.setName("24");
-    jButton25.setName("25");
-    jButton26.setName("26");
-    jButton27.setName("27");
-    jButton28.setName("28");
-    jButton29.setName("29");
-    jButton30.setName("30");
-    jButton31.setName("31");
-    jButton32.setName("32");
-    jButton33.setName("33");
-    jButton34.setName("34");
-    jButton35.setName("35");
-    jButton36.setName("36");
-    jButton37.setName("37");
-    jButton38.setName("38");
-    jButton39.setName("39");
-    jButton40.setName("40");
-    jButton41.setName("41");
-    jButton42.setName("42");
-    jButton43.setName("43");
-    jButton44.setName("44");
-    jButton45.setName("45");
-    jButton46.setName("46");
-    jButton47.setName("47");
-    jButton48.setName("48");
-    jButton49.setName("49");
-    jButton50.setName("50");
-    jButton51.setName("51");
-    jButton52.setName("52");
-    jButton53.setName("53");
-    jButton54.setName("54");
-    jButton55.setName("55");
-    jButton56.setName("56");
-    jButton57.setName("57");
-    jButton58.setName("58");
-    jButton59.setName("59");
-    jButton60.setName("60");
-    jButton61.setName("61");
-    jButton62.setName("62");
-    jButton63.setName("63");
-    jButton64.setName("64");
   }
   
   @Override
