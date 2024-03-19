@@ -1,6 +1,7 @@
 package mvc.othello;
 
 import com.mrjaffesclass.apcs.messenger.*;
+import java.util.ArrayList;
 
 /**
  * The model represents the data that the app uses.
@@ -13,7 +14,12 @@ public class Model implements MessageHandler {
   private final Messenger mvcMessaging;
 
   // Model's data variables
-
+  private int[][] board;
+  private ArrayList<Coordinate> legalMoves;
+  private int gameStatus;
+  private int whoseMove;
+  private int blackPieces;
+  private int whitePieces;
 
   /**
    * Model constructor: Create the data representation of the program
@@ -22,25 +28,59 @@ public class Model implements MessageHandler {
    */
   public Model(Messenger messages) {
     this.mvcMessaging = messages;
-    
+    this.board = new int[8][8];
+    this.legalMoves = new ArrayList<>();
   }
   
   /**
    * Initialize the model here and subscribe to any required messages
    */
   public void init() {
-    this.newGame();
     //subscribe to messages here
-    this.mvcMessaging.subscribe("btnClicked", this);
+    this.mvcMessaging.subscribe("view:btnClicked", this);
+    this.mvcMessaging.subscribe("view:newGame", this);
+    
+    this.newGame();
   }
   
     /**
    * Reset the state for a new game
    */
   private void newGame() {
+    // starting board state
+    for (int row = 0; row < Constants.BOARD_SIZE; row++) {
+        for (int col = 0; col < Constants.BOARD_SIZE; col++) {
+            if ((row==3 && col==3) || (row==4 && col==4)) {
+                board[row][col] = Constants.WHITE;
+            } else if ((row==3 && col==4) || (row==4 && col==3)) {
+                board[row][col] = Constants.BLACK;
+            } else board[row][col] = Constants.EMPTY;
+        }
+    }
     
+    this.gameStatus = Constants.IN_PLAY;
+    this.whoseMove = Constants.BLACK;
+    this.legalMoves.clear();
+    
+    this.legalMoves.add(new Coordinate(2, 3));
+    this.legalMoves.add(new Coordinate(3, 2));
+    this.legalMoves.add(new Coordinate(4, 5));
+    this.legalMoves.add(new Coordinate(5, 4));
+    
+    this.whitePieces = 2;
+    this.blackPieces = 2;
+    
+    
+    this.mvcMessaging.notify("model:boardChanged", this.board);
+    this.mvcMessaging.notify("model:legalMovesChanged", this.legalMoves);
+    this.mvcMessaging.notify("model:piecesChanged", new Coordinate(blackPieces, whitePieces));
+    this.mvcMessaging.notify("model:moveChanged", this.whoseMove);
   }
 
+    public void makeMove(Coordinate move) {
+        this.board[move.getRow()][move.getCol()] = this.whoseMove;
+        //step into every direction and make move       
+    }
   
     @Override
     public void messageHandler(String messageName, Object messagePayload) {
@@ -53,8 +93,22 @@ public class Model implements MessageHandler {
 
         // playerMove message handler
         switch (messageName) {
-            case "btnClicked": {
-                //do something
+            case "view:btnClicked": {
+                Coordinate move = (Coordinate) messagePayload;
+                for (Coordinate legalMove : legalMoves) {
+                    if (move.equals(legalMove)) {
+                        makeMove(move);
+                        break;
+                    }
+                }
+                
+                break;
+            }
+            
+            case "view:newGame": {
+                this.newGame();
+                
+                break;
             }
 
             default: {

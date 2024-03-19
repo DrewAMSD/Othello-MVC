@@ -5,6 +5,7 @@
 package mvc.othello;
 import com.mrjaffesclass.apcs.messenger.*;
 import javax.swing.JButton;
+import java.util.ArrayList;
 /**
  *
  * @author student
@@ -50,24 +51,30 @@ public class View extends javax.swing.JFrame implements MessageHandler {
    */
   public void init() {
     // Subscribe to messages here
-
-    newGame();
-  }
-  
-  private void newGame() {
+    this.mvcMessaging.subscribe("model:newGame", this);
+    this.mvcMessaging.subscribe("model:boardChanged", this);
+    this.mvcMessaging.subscribe("model:legalMovesChanged", this);
+    this.mvcMessaging.subscribe("model:piecesChanged", this);
+    this.mvcMessaging.subscribe("model:moveChanged", this);
+    this.mvcMessaging.subscribe("model:gameOver", this);
+    
      //add icons and names to buttons
     for (int row = 0; row < Constants.BOARD_SIZE; row++) {
         for (int col = 0; col < Constants.BOARD_SIZE; col++) {
-            this.panel[row][col].setIcon(Constants.EMPTY_ICON);
+            //this.panel[row][col].setIcon(Constants.EMPTY_ICON);
             this.panel[row][col].setName(""+row+col+"");
         }
-    }
+    }/*
     //starting with white and black in the middle
     this.panel[3][3].setIcon(Constants.WHITE_ICON);
     this.panel[3][4].setIcon(Constants.BLACK_ICON);
     this.panel[4][3].setIcon(Constants.BLACK_ICON);
     this.panel[4][4].setIcon(Constants.WHITE_ICON);
-    //
+    //testing starting legal moves
+    this.panel[2][3].setIcon(Constants.LEGAL_MOVE_ICON);
+    this.panel[3][2].setIcon(Constants.LEGAL_MOVE_ICON);
+    this.panel[5][4].setIcon(Constants.LEGAL_MOVE_ICON);
+    this.panel[4][5].setIcon(Constants.LEGAL_MOVE_ICON);*/
   }
   
   @Override
@@ -79,7 +86,62 @@ public class View extends javax.swing.JFrame implements MessageHandler {
     }
     
     switch (messageName) {
+        case "model:boardChanged": {
+            int[][] board = (int[][]) messagePayload;
+            for (int row = 0; row < Constants.BOARD_SIZE; row++) {
+                for (int col = 0; col < Constants.BOARD_SIZE; col++) {
+                    switch (board[row][col]) {
+                        case Constants.EMPTY: 
+                            panel[row][col].setIcon(Constants.EMPTY_ICON);
+                            break;
+                        case Constants.BLACK:
+                            panel[row][col].setIcon(Constants.BLACK_ICON);
+                            break;
+                        case Constants.WHITE:
+                            panel[row][col].setIcon(Constants.WHITE_ICON);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            
+            break;
+        }
         
+        case "model:legalMovesChanged": {
+            ArrayList<Coordinate> legalMoves = (ArrayList<Coordinate>) messagePayload;
+            for (Coordinate move : legalMoves) {
+                panel[move.getRow()][move.getCol()].setIcon(Constants.LEGAL_MOVE_ICON);
+            }
+            
+            break;
+        }
+        
+        case "model:piecesChanged": {
+            Coordinate pieces = (Coordinate) messagePayload;
+            blackPiecesNumberLbl.setText(""+pieces.getRow());
+            whitePiecesNumberLbl.setText(""+pieces.getCol());
+            
+            break;
+        }
+        
+        case "model:moveChanged": {
+            int whoseMove = (int) messagePayload;
+            String player = (whoseMove == Constants.BLACK ? "Black" : "White");
+            moveLbl.setText(player+" To Move");
+            
+            break;
+        }
+        
+        case "model:gameOver": {
+            int gameStatus = (int) messagePayload;
+            String player = (gameStatus == Constants.BLACK_WINS ? "Black" : "White");
+            moveLbl.setText(player+" Wins!!");
+            
+            break;
+        }
+
         default: {
             break;
         }
@@ -96,6 +158,12 @@ public class View extends javax.swing.JFrame implements MessageHandler {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        newGameBtn = new javax.swing.JButton();
+        moveLbl = new javax.swing.JLabel();
+        blackPiecesLbl = new javax.swing.JLabel();
+        whitePiecesLbl = new javax.swing.JLabel();
+        blackPiecesNumberLbl = new javax.swing.JLabel();
+        whitePiecesNumberLbl = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -164,10 +232,27 @@ public class View extends javax.swing.JFrame implements MessageHandler {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
-        setMaximumSize(new java.awt.Dimension(660, 740));
-        setMinimumSize(new java.awt.Dimension(660, 740));
-        setPreferredSize(new java.awt.Dimension(660, 740));
+        setMaximumSize(new java.awt.Dimension(660, 780));
+        setMinimumSize(new java.awt.Dimension(660, 780));
+        setPreferredSize(new java.awt.Dimension(660, 780));
         setResizable(false);
+
+        newGameBtn.setFont(new java.awt.Font("Fira Sans", 0, 24)); // NOI18N
+        newGameBtn.setText("New Game");
+        newGameBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newGameBtnClicked(evt);
+            }
+        });
+
+        moveLbl.setFont(new java.awt.Font("Fira Sans", 0, 24)); // NOI18N
+        moveLbl.setText("Black To Move");
+
+        blackPiecesLbl.setFont(new java.awt.Font("Fira Sans", 0, 18)); // NOI18N
+        blackPiecesLbl.setText("Black Pieces:");
+
+        whitePiecesLbl.setFont(new java.awt.Font("Fira Sans", 0, 18)); // NOI18N
+        whitePiecesLbl.setText("White Pieces:");
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setMaximumSize(new java.awt.Dimension(640, 640));
@@ -436,28 +521,72 @@ public class View extends javax.swing.JFrame implements MessageHandler {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(moveLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(blackPiecesLbl)
+                        .addGap(18, 18, 18)
+                        .addComponent(blackPiecesNumberLbl))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(whitePiecesLbl)
+                        .addGap(18, 18, 18)
+                        .addComponent(whitePiecesNumberLbl)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(newGameBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 648, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(newGameBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(moveLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(blackPiecesLbl)
+                                    .addComponent(blackPiecesNumberLbl))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(whitePiecesLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(whitePiecesNumberLbl))
+                                .addGap(13, 13, 13)))))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void newGameBtnClicked(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newGameBtnClicked
+        // TODO add your handling code here:
+        this.mvcMessaging.notify("view:newGame", "");
+    }//GEN-LAST:event_newGameBtnClicked
     
     private void btnClicked(java.awt.event.ActionEvent evt) {
         JButton button = (JButton)evt.getSource();
-        this.mvcMessaging.notify("btnClicked", button.getName());
+        String btnName = button.getName();
+        int row = Integer.parseInt(btnName.substring(0,1));
+        int col = Integer.parseInt(btnName.substring(1,2));
+        Coordinate coordinate = new Coordinate(row, col);
+        this.mvcMessaging.notify("view:btnClicked", coordinate);
     }
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel blackPiecesLbl;
+    private javax.swing.JLabel blackPiecesNumberLbl;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
@@ -523,5 +652,9 @@ public class View extends javax.swing.JFrame implements MessageHandler {
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel moveLbl;
+    private javax.swing.JButton newGameBtn;
+    private javax.swing.JLabel whitePiecesLbl;
+    private javax.swing.JLabel whitePiecesNumberLbl;
     // End of variables declaration//GEN-END:variables
 }
