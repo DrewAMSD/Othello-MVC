@@ -136,8 +136,12 @@ public class View extends javax.swing.JFrame implements MessageHandler {
         
         case "model:gameOver": {
             int gameStatus = (int) messagePayload;
-            String player = (gameStatus == Constants.BLACK_WINS ? "Black" : "White");
-            moveLbl.setText(player+" Wins!!");
+            if (gameStatus == Constants.DRAW) {
+                moveLbl.setText("Draw!!");
+            } else {
+                String player = (gameStatus == Constants.BLACK_WINS ? "Black" : "White");
+                moveLbl.setText(player+" Wins!!");
+            }
             
             break;
         }

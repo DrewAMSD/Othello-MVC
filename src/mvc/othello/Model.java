@@ -76,25 +76,84 @@ public class Model implements MessageHandler {
     this.mvcMessaging.notify("model:piecesChanged", new Coordinate(blackPieces, whitePieces));
     this.mvcMessaging.notify("model:moveChanged", this.whoseMove);
   }
-
-    public void makeMove(Coordinate move) {
-        this.board[move.getRow()][move.getCol()] = this.whoseMove;
-        //step into every direction and make move
+  
+    private void flipOpposingTiles() {
         
-        //count new pieces on the board
-        
-        //update ui of placed board and pieces
+    }
+  
+    private void countPieces() {
+        int black = 0;
+        int white = 0;
+        for (int row = 0; row < Constants.BOARD_SIZE; row++) {
+            for (int col = 0; col < Constants.BOARD_SIZE; col++) {
+                if (board[row][col] == Constants.BLACK) {
+                    black++;
+                } else if (board[row][col] == Constants.WHITE) {
+                    white++;
+                }
+            }
+        }
+        this.blackPieces = black;
+        this.whitePieces = white;
+    }
+  
+    private void updateBoardAndPiecesUI() {
         this.mvcMessaging.notify("model:boardChanged", this.board);
         this.mvcMessaging.notify("model:piecesChanged", new Coordinate(blackPieces, whitePieces));
-        
-        //change player, check for new legal moves, if none, back to other player, if also none gameOver(count pieces and determine winner or draw), if either have moves, then continue
-        
-        
-        //if gameOver then update ui to that status, otherwise update new legal moves and current player label
+    }
+    
+    private int getWinner() {
+        if (blackPieces > whitePieces) {
+            return Constants.BLACK_WINS;
+        }
+        if (blackPieces < whitePieces) {
+            return Constants.WHITE_WINS;
+        }
+        return Constants.DRAW;
+    }
+    
+    private void changeTurnAndCheckForWinner(){
+        this.whoseMove = this.whoseMove * -1;
+        /*
+        this.legalMoves = getLegalMoves();
+        if (this.legalMoves.size() == 0) {
+            this.whoseMove = this.whoseMove * -1;
+            this.legalMoves = getLegalMoves();
+            if (this.legalMoves.size() == 0) {
+                this.gameStatus = this.getWinner();
+            }
+        }
+       */
+    }
+    
+    private void updateGameStatusUI() {
         if (gameStatus == Constants.IN_PLAY) {
             //this.mvcMessaging.notify("model:legalMovesChanged", this.legalMoves);
             this.mvcMessaging.notify("model:moveChanged", this.whoseMove);
+        } else {
+            this.mvcMessaging.notify("model:gameOver", this.gameStatus);
         }
+    }
+    
+
+    public void makeMove(Coordinate move) {
+        //move is a legal move, place tile into move coordinate
+        this.board[move.getRow()][move.getCol()] = this.whoseMove;
+        
+        //step into every direction and flip tiles in between move and a tile from whoseMove if every tile in between is the opposing players tile
+        this.flipOpposingTiles();
+        
+        //count new pieces on the board
+        this.countPieces();
+        
+        //update ui of placed board and pieces
+        this.updateBoardAndPiecesUI();
+        
+        //change player, check for new legal moves, if none, back to other player, if also none gameOver(determine winner or draw), if either have moves, then continue
+        this.changeTurnAndCheckForWinner();
+        
+        //update ui based on current game state
+        this.updateGameStatusUI();
     }
   
     @Override
