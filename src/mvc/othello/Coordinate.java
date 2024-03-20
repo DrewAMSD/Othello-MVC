@@ -25,8 +25,8 @@ public class Coordinate {
         return this.col;
     }
     
-    public boolean equals(int row, int col) {
-        return (this.row == row && this.col == col);
+    public boolean isEqualTo(Coordinate coord) {
+        return (this.row == coord.getRow() && this.col == coord.getCol());
     }
     
     @Override

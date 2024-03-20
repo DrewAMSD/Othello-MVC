@@ -79,7 +79,22 @@ public class Model implements MessageHandler {
 
     public void makeMove(Coordinate move) {
         this.board[move.getRow()][move.getCol()] = this.whoseMove;
-        //step into every direction and make move       
+        //step into every direction and make move
+        
+        //count new pieces on the board
+        
+        //update ui of placed board and pieces
+        this.mvcMessaging.notify("model:boardChanged", this.board);
+        this.mvcMessaging.notify("model:piecesChanged", new Coordinate(blackPieces, whitePieces));
+        
+        //change player, check for new legal moves, if none, back to other player, if also none gameOver(count pieces and determine winner or draw), if either have moves, then continue
+        
+        
+        //if gameOver then update ui to that status, otherwise update new legal moves and current player label
+        if (gameStatus == Constants.IN_PLAY) {
+            //this.mvcMessaging.notify("model:legalMovesChanged", this.legalMoves);
+            this.mvcMessaging.notify("model:moveChanged", this.whoseMove);
+        }
     }
   
     @Override
@@ -94,11 +109,13 @@ public class Model implements MessageHandler {
         // playerMove message handler
         switch (messageName) {
             case "view:btnClicked": {
-                Coordinate move = (Coordinate) messagePayload;
-                for (Coordinate legalMove : legalMoves) {
-                    if (move.equals(legalMove)) {
-                        makeMove(move);
-                        break;
+                if (gameStatus == Constants.IN_PLAY) {
+                    Coordinate move = (Coordinate) messagePayload;
+                    for (Coordinate legalMove : legalMoves) {
+                        if (move.isEqualTo(legalMove)) {
+                            makeMove(move);
+                            break;
+                        }
                     }
                 }
                 

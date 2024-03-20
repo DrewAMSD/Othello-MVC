@@ -24,6 +24,7 @@ public class Constants {
     public static final int IN_PLAY = -2;
     public static final int WHITE_WINS = -3;
     public static final int BLACK_WINS = -4;
+    public static final int DRAW = -5;
     
     //image icons
     public static final ImageIcon EMPTY_ICON = new ImageIcon("/home/drewam/Desktop/Coding/Othello-MVC/src/mvc/othello/emptyIcon.png");
