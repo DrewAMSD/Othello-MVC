@@ -25,8 +25,17 @@ public class Coordinate {
         return this.col;
     }
     
+    public void add(Coordinate coord) {
+        this.row += coord.getRow();
+        this.col += coord.getCol();
+    }
+    
     public boolean isEqualTo(Coordinate coord) {
         return (this.row == coord.getRow() && this.col == coord.getCol());
+    }
+    
+    public boolean isInsideBoard() {
+        return (0 <= this.row && this.row < Constants.BOARD_SIZE && 0 <= this.col && this.col < Constants.BOARD_SIZE);
     }
     
     @Override

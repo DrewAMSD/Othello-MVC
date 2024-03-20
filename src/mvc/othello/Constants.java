@@ -26,6 +26,16 @@ public class Constants {
     public static final int BLACK_WINS = -4;
     public static final int DRAW = -5;
     
+    //directions for stepping through the board
+    public static final Coordinate[] DIRECTIONS = {new Coordinate(1, 0), 
+                            new Coordinate(-1,0),
+                            new Coordinate(0, 1),
+                            new Coordinate(0, -1),
+                            new Coordinate(1, 1),
+                            new Coordinate(1, -1),
+                            new Coordinate(-1, 1),
+                            new Coordinate(-1, -1) };
+    
     //image icons
     public static final ImageIcon EMPTY_ICON = new ImageIcon("/home/drewam/Desktop/Coding/Othello-MVC/src/mvc/othello/emptyIcon.png");
     public static final ImageIcon BLACK_ICON = new ImageIcon("/home/drewam/Desktop/Coding/Othello-MVC/src/mvc/othello/blackIcon.png");

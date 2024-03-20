@@ -78,7 +78,7 @@ public class Model implements MessageHandler {
   }
   
     private void flipOpposingTiles() {
-        
+        //start recursive method
     }
   
     private void countPieces() {
@@ -102,6 +102,50 @@ public class Model implements MessageHandler {
         this.mvcMessaging.notify("model:piecesChanged", new Coordinate(blackPieces, whitePieces));
     }
     
+    private boolean checkDirection(Coordinate direction, Coordinate curLocation) {
+        boolean moving = true;
+        boolean isOppositeTile = false;
+        while (moving) {
+            curLocation.add(direction);
+            if (!curLocation.isInsideBoard()) {
+                return false;
+            }
+            int curTile = board[curLocation.getRow()][curLocation.getCol()];
+            if (curTile == this.whoseMove * -1) {
+                isOppositeTile = true;
+            } else if (curTile == this.whoseMove) {
+                break;
+            } else {
+                return false;
+            }
+        }
+        return isOppositeTile;
+        
+    }
+    
+    private boolean isLegalMove(Coordinate possibleMove) {
+        for (Coordinate direction : Constants.DIRECTIONS) {
+            Coordinate tempMove = new Coordinate(possibleMove.getRow(), possibleMove.getCol());
+            if (this.checkDirection(direction, tempMove)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    private ArrayList<Coordinate> getLegalMoves() {
+        ArrayList<Coordinate> newLegalMoves = new ArrayList<>();
+        for (int row = 0; row < Constants.BOARD_SIZE; row++) {
+            for (int col = 0; col < Constants.BOARD_SIZE; col++) {
+                Coordinate possibleMove = new Coordinate(row, col);
+                if (board[possibleMove.getRow()][possibleMove.getCol()] == Constants.EMPTY && isLegalMove(possibleMove)) {
+                    newLegalMoves.add(possibleMove);
+                }
+            }
+        }
+        return newLegalMoves;
+    }
+    
     private int getWinner() {
         if (blackPieces > whitePieces) {
             return Constants.BLACK_WINS;
@@ -114,21 +158,19 @@ public class Model implements MessageHandler {
     
     private void changeTurnAndCheckForWinner(){
         this.whoseMove = this.whoseMove * -1;
-        /*
         this.legalMoves = getLegalMoves();
-        if (this.legalMoves.size() == 0) {
+        if (this.legalMoves.isEmpty()) {
             this.whoseMove = this.whoseMove * -1;
             this.legalMoves = getLegalMoves();
-            if (this.legalMoves.size() == 0) {
+            if (this.legalMoves.isEmpty()) {
                 this.gameStatus = this.getWinner();
             }
         }
-       */
     }
     
     private void updateGameStatusUI() {
         if (gameStatus == Constants.IN_PLAY) {
-            //this.mvcMessaging.notify("model:legalMovesChanged", this.legalMoves);
+            this.mvcMessaging.notify("model:legalMovesChanged", this.legalMoves);
             this.mvcMessaging.notify("model:moveChanged", this.whoseMove);
         } else {
             this.mvcMessaging.notify("model:gameOver", this.gameStatus);
@@ -141,7 +183,7 @@ public class Model implements MessageHandler {
         this.board[move.getRow()][move.getCol()] = this.whoseMove;
         
         //step into every direction and flip tiles in between move and a tile from whoseMove if every tile in between is the opposing players tile
-        this.flipOpposingTiles();
+        this.flipOpposingTiles(); //not finished
         
         //count new pieces on the board
         this.countPieces();
