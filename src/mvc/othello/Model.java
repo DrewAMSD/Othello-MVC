@@ -205,7 +205,7 @@ public class Model implements MessageHandler {
         this.board[moveMade.getRow()][moveMade.getCol()] = this.whoseMove;
         
         //step into every direction and flip tiles in between move and a tile from whoseMove if every tile in between is the opposing players tile
-        this.flipOpposingTiles(moveMade); //not finished / isn't correct
+        this.flipOpposingTiles(moveMade);
         
         //count new pieces on the board
         this.countPieces();
