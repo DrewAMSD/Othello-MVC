@@ -77,8 +77,30 @@ public class Model implements MessageHandler {
     this.mvcMessaging.notify("model:moveChanged", this.whoseMove);
   }
   
-    private void flipOpposingTiles() {
-        //start recursive method
+    private void flipTiles(Coordinate direction, Coordinate curLocation) {
+        boolean moving = true;
+        while (moving) {
+            curLocation.add(direction);
+            if (!curLocation.isInsideBoard()) {
+                break;
+            }
+            int curRow = curLocation.getRow();
+            int curCol = curLocation.getCol();
+            if (board[curRow][curCol] == this.whoseMove) {
+                break;
+            }
+            board[curRow][curCol] = this.whoseMove;
+        }
+    }
+    
+    private void flipOpposingTiles(Coordinate moveMade) {
+        for (Coordinate direction : Constants.DIRECTIONS) {
+            Coordinate curLocation = new Coordinate(moveMade.getRow(), moveMade.getCol());
+            if (this.checkDirection(direction, curLocation)) {
+                Coordinate tempMoveMade = new Coordinate(moveMade.getRow(), moveMade.getCol());
+                this.flipTiles(direction, tempMoveMade);
+            }
+        }
     }
   
     private void countPieces() {
@@ -178,12 +200,12 @@ public class Model implements MessageHandler {
     }
     
 
-    public void makeMove(Coordinate move) {
+    public void makeMove(Coordinate moveMade) {
         //move is a legal move, place tile into move coordinate
-        this.board[move.getRow()][move.getCol()] = this.whoseMove;
+        this.board[moveMade.getRow()][moveMade.getCol()] = this.whoseMove;
         
         //step into every direction and flip tiles in between move and a tile from whoseMove if every tile in between is the opposing players tile
-        this.flipOpposingTiles(); //not finished
+        this.flipOpposingTiles(moveMade); //not finished / isn't correct
         
         //count new pieces on the board
         this.countPieces();
@@ -211,10 +233,10 @@ public class Model implements MessageHandler {
         switch (messageName) {
             case "view:btnClicked": {
                 if (gameStatus == Constants.IN_PLAY) {
-                    Coordinate move = (Coordinate) messagePayload;
+                    Coordinate moveMade = (Coordinate) messagePayload;
                     for (Coordinate legalMove : legalMoves) {
-                        if (move.isEqualTo(legalMove)) {
-                            makeMove(move);
+                        if (moveMade.isEqualTo(legalMove)) {
+                            makeMove(moveMade);
                             break;
                         }
                     }
