@@ -20,6 +20,10 @@ public class Model implements MessageHandler {
   private int whoseMove;
   private int blackPieces;
   private int whitePieces;
+  
+  //ai variables
+  private AIPlayer aiPlayer;
+  private boolean playingAI;
 
   /**
    * Model constructor: Create the data representation of the program
@@ -30,6 +34,10 @@ public class Model implements MessageHandler {
     this.mvcMessaging = messages;
     this.board = new int[8][8];
     this.legalMoves = new ArrayList<>();
+    
+    //ai
+    this.aiPlayer = new AIPlayer(Constants.WHITE, Constants.AI_EASY);
+    this.playingAI = false;
   }
   
   /**
@@ -39,6 +47,9 @@ public class Model implements MessageHandler {
     //subscribe to messages here
     this.mvcMessaging.subscribe("view:btnClicked", this);
     this.mvcMessaging.subscribe("view:newGame", this);
+    //ai
+    this.mvcMessaging.subscribe("view:switchPlayer", this);
+    this.mvcMessaging.subscribe("view:switchAiColor", this);
     
     this.newGame();
   }
@@ -69,6 +80,12 @@ public class Model implements MessageHandler {
     
     this.whitePieces = 2;
     this.blackPieces = 2;
+    
+    if (playingAI) {
+        if (aiPlayer.getColor() == Constants.BLACK) {
+            makeMove(aiPlayer.getMove(board, legalMoves));
+        }
+    }
     
     
     this.mvcMessaging.notify("model:boardChanged", this.board);
@@ -233,10 +250,23 @@ public class Model implements MessageHandler {
         switch (messageName) {
             case "view:btnClicked": {
                 if (gameStatus == Constants.IN_PLAY) {
+                    //check if ai is currently making a move
+                    if (playingAI && this.whoseMove == aiPlayer.getColor()) {
+                        break;
+                    }
                     Coordinate moveMade = (Coordinate) messagePayload;
                     for (Coordinate legalMove : legalMoves) {
                         if (moveMade.isEqualTo(legalMove)) {
                             makeMove(moveMade);
+                            //ai makes move if playing ai and its their turn after move is made
+                            if (playingAI && this.whoseMove == aiPlayer.getColor()) {
+                                try {
+                                    Thread.sleep(500);
+                                } catch (InterruptedException e) {
+                                    Thread.currentThread().interrupt();
+                                }
+                                makeMove(aiPlayer.getMove(board, legalMoves));
+                            }
                             break;
                         }
                     }
@@ -250,7 +280,25 @@ public class Model implements MessageHandler {
                 
                 break;
             }
+            
+            case "view:switchPlayer": {
+                this.playingAI = !this.playingAI;
+                this.mvcMessaging.notify("model:playingAiChanged", this.playingAI);
+                this.newGame();
+                
+                break;
+            }
 
+            case "view:switchAiColor": {
+                this.aiPlayer.changeColor(this.aiPlayer.getColor() * -1);
+                this.mvcMessaging.notify("model:aiColorChanged",this.aiPlayer.getColor());
+                if (playingAI) {
+                    this.newGame();
+                }
+                
+                break;
+            }
+            
             default: {
                 break;
             }

@@ -57,6 +57,9 @@ public class View extends javax.swing.JFrame implements MessageHandler {
     this.mvcMessaging.subscribe("model:piecesChanged", this);
     this.mvcMessaging.subscribe("model:moveChanged", this);
     this.mvcMessaging.subscribe("model:gameOver", this);
+    //ai
+    this.mvcMessaging.subscribe("model:playingAiChanged", this);
+    this.mvcMessaging.subscribe(("model:aiColorChanged"), this);
     
      //add icons and names to buttons
     for (int row = 0; row < Constants.BOARD_SIZE; row++) {
@@ -145,7 +148,29 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             
             break;
         }
+        
+        case "model:playingAiChanged": {
+            boolean playingAI = (boolean) messagePayload;
+            if (playingAI) {
+                opponentLbl.setText("Playing AI");
+            } else {
+                opponentLbl.setText("Playing Player");
+            }
+            
+            break;
+        }
 
+        case "model:aiColorChanged": {
+            int aiColor = (int) messagePayload;
+            if (aiColor == Constants.BLACK) {
+                aiColorLbl.setText("AI Color: Black");
+            } else {
+                aiColorLbl.setText("AI Color: White");
+            }
+            
+            break;
+        }
+        
         default: {
             break;
         }
@@ -168,6 +193,11 @@ public class View extends javax.swing.JFrame implements MessageHandler {
         whitePiecesLbl = new javax.swing.JLabel();
         blackPiecesNumberLbl = new javax.swing.JLabel();
         whitePiecesNumberLbl = new javax.swing.JLabel();
+        aiLbl = new javax.swing.JLabel();
+        switchPlayerBtn = new javax.swing.JButton();
+        opponentLbl = new javax.swing.JLabel();
+        aiColorLbl = new javax.swing.JLabel();
+        switchAiColorBtn = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -236,9 +266,8 @@ public class View extends javax.swing.JFrame implements MessageHandler {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
-        setMaximumSize(new java.awt.Dimension(660, 780));
-        setMinimumSize(new java.awt.Dimension(660, 780));
-        setPreferredSize(new java.awt.Dimension(660, 780));
+        setMaximumSize(new java.awt.Dimension(800, 780));
+        setMinimumSize(new java.awt.Dimension(800, 780));
         setResizable(false);
 
         newGameBtn.setFont(new java.awt.Font("Fira Sans", 0, 24)); // NOI18N
@@ -257,6 +286,31 @@ public class View extends javax.swing.JFrame implements MessageHandler {
 
         whitePiecesLbl.setFont(new java.awt.Font("Fira Sans", 0, 18)); // NOI18N
         whitePiecesLbl.setText("White Pieces:");
+
+        aiLbl.setFont(new java.awt.Font("Fira Sans", 0, 48)); // NOI18N
+        aiLbl.setText("AI:");
+
+        switchPlayerBtn.setFont(new java.awt.Font("Fira Sans", 0, 24)); // NOI18N
+        switchPlayerBtn.setText("Switch");
+        switchPlayerBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                switchPlayerBtnActionPerformed(evt);
+            }
+        });
+
+        opponentLbl.setFont(new java.awt.Font("Fira Sans", 0, 18)); // NOI18N
+        opponentLbl.setText("Playing Player");
+
+        aiColorLbl.setFont(new java.awt.Font("Fira Sans", 0, 18)); // NOI18N
+        aiColorLbl.setText("AI Color: White");
+
+        switchAiColorBtn.setFont(new java.awt.Font("Fira Sans", 0, 24)); // NOI18N
+        switchAiColorBtn.setText("Switch");
+        switchAiColorBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                switchAiColorBtnActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setMaximumSize(new java.awt.Dimension(640, 640));
@@ -525,48 +579,78 @@ public class View extends javax.swing.JFrame implements MessageHandler {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(moveLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(moveLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(blackPiecesLbl)
+                                .addGap(18, 18, 18)
+                                .addComponent(blackPiecesNumberLbl))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(whitePiecesLbl)
+                                .addGap(18, 18, 18)
+                                .addComponent(whitePiecesNumberLbl)))
+                        .addGap(130, 130, 130)
+                        .addComponent(newGameBtn)
+                        .addGap(9, 9, 9))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(blackPiecesLbl)
-                        .addGap(18, 18, 18)
-                        .addComponent(blackPiecesNumberLbl))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(aiLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(46, 46, 46))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(whitePiecesLbl)
-                        .addGap(18, 18, 18)
-                        .addComponent(whitePiecesNumberLbl)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(newGameBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 648, Short.MAX_VALUE)
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(opponentLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+                                    .addComponent(switchPlayerBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(0, 6, Short.MAX_VALUE))
+                            .addComponent(aiColorLbl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                            .addComponent(switchAiColorBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(newGameBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(49, 49, 49)
+                        .addComponent(aiLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(moveLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(16, 16, 16)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(blackPiecesLbl)
                                     .addComponent(blackPiecesNumberLbl))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(whitePiecesLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(whitePiecesNumberLbl))
-                                .addGap(13, 13, 13)))))
-                .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(13, 13, 13))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(newGameBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(moveLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(opponentLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(switchPlayerBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(46, 46, 46)
+                        .addComponent(aiColorLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(switchAiColorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -577,6 +661,16 @@ public class View extends javax.swing.JFrame implements MessageHandler {
         // TODO add your handling code here:
         this.mvcMessaging.notify("view:newGame", "");
     }//GEN-LAST:event_newGameBtnClicked
+
+    private void switchPlayerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_switchPlayerBtnActionPerformed
+        // TODO add your handling code here
+        this.mvcMessaging.notify("view:switchPlayer", "");
+    }//GEN-LAST:event_switchPlayerBtnActionPerformed
+
+    private void switchAiColorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_switchAiColorBtnActionPerformed
+        // TODO add your handling code here:
+        this.mvcMessaging.notify("view:switchAiColor", "");
+    }//GEN-LAST:event_switchAiColorBtnActionPerformed
     
     private void btnClicked(java.awt.event.ActionEvent evt) {
         JButton button = (JButton)evt.getSource();
@@ -589,6 +683,8 @@ public class View extends javax.swing.JFrame implements MessageHandler {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel aiColorLbl;
+    private javax.swing.JLabel aiLbl;
     private javax.swing.JLabel blackPiecesLbl;
     private javax.swing.JLabel blackPiecesNumberLbl;
     private javax.swing.JButton jButton1;
@@ -658,6 +754,9 @@ public class View extends javax.swing.JFrame implements MessageHandler {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel moveLbl;
     private javax.swing.JButton newGameBtn;
+    private javax.swing.JLabel opponentLbl;
+    private javax.swing.JButton switchAiColorBtn;
+    private javax.swing.JButton switchPlayerBtn;
     private javax.swing.JLabel whitePiecesLbl;
     private javax.swing.JLabel whitePiecesNumberLbl;
     // End of variables declaration//GEN-END:variables

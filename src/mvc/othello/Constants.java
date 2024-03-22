@@ -20,6 +20,11 @@ public class Constants {
     //board size
     public static final int BOARD_SIZE = 8;
     
+    //ai constants
+    public static final String AI_EASY = "easy";
+    public static final String AI_MEDIUM = "medium";
+    public static final String AI_HARD = "hard";
+    
     //game states
     public static final int IN_PLAY = -2;
     public static final int WHITE_WINS = -3;
