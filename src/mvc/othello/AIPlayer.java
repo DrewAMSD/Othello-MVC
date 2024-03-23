@@ -33,12 +33,14 @@ public class AIPlayer {
     }
     
     private Coordinate getEasyMove(int[][] board, ArrayList<Coordinate> legalMoves) {
-        Coordinate move = legalMoves.get(0);
-        
+        //get random move
+        int randomNum = (int) (Math.random() * legalMoves.size());
+        Coordinate move = legalMoves.get(randomNum);
         return move;
     }
     
     private Coordinate getMediumMove(int[][] board, ArrayList<Coordinate> legalMoves) {
+        //move that gets the most pieces
         Coordinate move = legalMoves.get(0);
         
         return move;
