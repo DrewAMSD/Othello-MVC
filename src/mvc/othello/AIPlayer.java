@@ -122,7 +122,7 @@ public class AIPlayer {
         //move that gets the most pieces
         Coordinate move = legalMoves.get(0);
         int bestEval = Integer.MIN_VALUE;
-        for (Coordinate legalMove :legalMoves) {
+        for (Coordinate legalMove : legalMoves) {
             int[][] tempBoard = cloneBoard(board);
             //make move on tempBoard and count for the most pieces
             this.makeMoveAI(tempBoard, move);
@@ -136,9 +136,26 @@ public class AIPlayer {
         return move;
     }
     
+    private int evaluate(int[][] board) {
+        //check for corner pieces and for stable pieces(pieces that can't be taken)
+        
+        return 0;
+    }
+    
     private Coordinate getHardMove(int[][] board, ArrayList<Coordinate> legalMoves) {
         //looking for corner and stable pieces
         Coordinate move = legalMoves.get(0);
+        int bestEval = Integer.MIN_VALUE;
+        for (Coordinate legalMove : legalMoves) {
+            int[][] tempBoard = cloneBoard(board);
+            //make move on tempBoard and count for corners and stable pieces
+            this.makeMoveAI(tempBoard, move);
+            int eval = this.evaluate(tempBoard); //difference between medium and hard
+            if (eval > bestEval) {
+                bestEval = eval;
+                move = legalMove;
+            }
+        }
         
         return move;
     }
