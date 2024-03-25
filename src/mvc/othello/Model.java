@@ -159,8 +159,7 @@ public class Model implements MessageHandler {
                 return false;
             }
         }
-        return isOppositeTile;
-        
+        return isOppositeTile;  
     }
     
     private boolean isLegalMove(Coordinate possibleMove) {
