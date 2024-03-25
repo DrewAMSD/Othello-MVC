@@ -21,9 +21,10 @@ public class Constants {
     public static final int BOARD_SIZE = 8;
     
     //ai constants
-    public static final String AI_EASY = "easy";
-    public static final String AI_MEDIUM = "medium";
-    public static final String AI_HARD = "hard";
+    public static final String AI_EASY = "Easy";
+    public static final String AI_MEDIUM = "Medium";
+    public static final String AI_HARD = "Hard";
+    public static final String AI_EXTREME = "Extreme";
     
     //game states
     public static final int IN_PLAY = -2;

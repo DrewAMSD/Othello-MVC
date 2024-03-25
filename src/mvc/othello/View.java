@@ -60,24 +60,18 @@ public class View extends javax.swing.JFrame implements MessageHandler {
     //ai
     this.mvcMessaging.subscribe("model:playingAiChanged", this);
     this.mvcMessaging.subscribe(("model:aiColorChanged"), this);
+    this.mvcMessaging.subscribe("model:aiDifficultyChanged", this);
     
      //add icons and names to buttons
     for (int row = 0; row < Constants.BOARD_SIZE; row++) {
         for (int col = 0; col < Constants.BOARD_SIZE; col++) {
-            //this.panel[row][col].setIcon(Constants.EMPTY_ICON);
             this.panel[row][col].setName(""+row+col+"");
         }
-    }/*
-    //starting with white and black in the middle
-    this.panel[3][3].setIcon(Constants.WHITE_ICON);
-    this.panel[3][4].setIcon(Constants.BLACK_ICON);
-    this.panel[4][3].setIcon(Constants.BLACK_ICON);
-    this.panel[4][4].setIcon(Constants.WHITE_ICON);
-    //testing starting legal moves
-    this.panel[2][3].setIcon(Constants.LEGAL_MOVE_ICON);
-    this.panel[3][2].setIcon(Constants.LEGAL_MOVE_ICON);
-    this.panel[5][4].setIcon(Constants.LEGAL_MOVE_ICON);
-    this.panel[4][5].setIcon(Constants.LEGAL_MOVE_ICON);*/
+    }
+    easyBtn.setName(Constants.AI_EASY);
+    mediumBtn.setName(Constants.AI_MEDIUM);
+    hardBtn.setName(Constants.AI_HARD);
+    extremeBtn.setName(Constants.AI_EXTREME);
   }
   
   @Override
@@ -171,6 +165,13 @@ public class View extends javax.swing.JFrame implements MessageHandler {
             break;
         }
         
+        case "model:aiDifficultyChanged": {
+            String difficulty = (String) messagePayload;
+            aiDifficultyLbl.setText(difficulty);
+            
+            break;
+        }
+        
         default: {
             break;
         }
@@ -198,6 +199,12 @@ public class View extends javax.swing.JFrame implements MessageHandler {
         opponentLbl = new javax.swing.JLabel();
         aiColorLbl = new javax.swing.JLabel();
         switchAiColorBtn = new javax.swing.JButton();
+        aiDifficultyTitleLbl = new javax.swing.JLabel();
+        aiDifficultyLbl = new javax.swing.JLabel();
+        easyBtn = new javax.swing.JButton();
+        mediumBtn = new javax.swing.JButton();
+        hardBtn = new javax.swing.JButton();
+        extremeBtn = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -309,6 +316,44 @@ public class View extends javax.swing.JFrame implements MessageHandler {
         switchAiColorBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 switchAiColorBtnActionPerformed(evt);
+            }
+        });
+
+        aiDifficultyTitleLbl.setFont(new java.awt.Font("Fira Sans", 0, 18)); // NOI18N
+        aiDifficultyTitleLbl.setText("AI Difficulty:");
+
+        aiDifficultyLbl.setFont(new java.awt.Font("Fira Sans", 0, 18)); // NOI18N
+        aiDifficultyLbl.setText("Easy");
+
+        easyBtn.setFont(new java.awt.Font("Fira Sans", 0, 18)); // NOI18N
+        easyBtn.setText("Easy");
+        easyBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                diffcultyBtnClicked(evt);
+            }
+        });
+
+        mediumBtn.setFont(new java.awt.Font("Fira Sans", 0, 18)); // NOI18N
+        mediumBtn.setText("Medium");
+        mediumBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                diffcultyBtnClicked(evt);
+            }
+        });
+
+        hardBtn.setFont(new java.awt.Font("Fira Sans", 0, 18)); // NOI18N
+        hardBtn.setText("Hard");
+        hardBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                diffcultyBtnClicked(evt);
+            }
+        });
+
+        extremeBtn.setFont(new java.awt.Font("Fira Sans", 0, 18)); // NOI18N
+        extremeBtn.setText("Extreme");
+        extremeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                diffcultyBtnClicked(evt);
             }
         });
 
@@ -605,14 +650,27 @@ public class View extends javax.swing.JFrame implements MessageHandler {
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(opponentLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
-                                    .addComponent(switchPlayerBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(0, 6, Short.MAX_VALUE))
                             .addComponent(aiColorLbl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-                            .addComponent(switchAiColorBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())))
+                            .addComponent(switchAiColorBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(opponentLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+                                        .addComponent(switchPlayerBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(22, 22, 22)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(easyBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(aiDifficultyTitleLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(mediumBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(hardBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(extremeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(52, 52, 52)
+                        .addComponent(aiDifficultyLbl)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -650,7 +708,19 @@ public class View extends javax.swing.JFrame implements MessageHandler {
                         .addGap(46, 46, 46)
                         .addComponent(aiColorLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(switchAiColorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(switchAiColorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(65, 65, 65)
+                        .addComponent(aiDifficultyTitleLbl)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(aiDifficultyLbl)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(easyBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(mediumBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(hardBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(extremeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -671,6 +741,13 @@ public class View extends javax.swing.JFrame implements MessageHandler {
         // TODO add your handling code here:
         this.mvcMessaging.notify("view:switchAiColor", "");
     }//GEN-LAST:event_switchAiColorBtnActionPerformed
+
+    private void diffcultyBtnClicked(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_diffcultyBtnClicked
+        // TODO add your handling code here:
+        JButton button = (JButton)evt.getSource();
+        String btnName = button.getName();
+        this.mvcMessaging.notify("view:difficultyBtnClicked", btnName);
+    }//GEN-LAST:event_diffcultyBtnClicked
     
     private void btnClicked(java.awt.event.ActionEvent evt) {
         JButton button = (JButton)evt.getSource();
@@ -684,9 +761,14 @@ public class View extends javax.swing.JFrame implements MessageHandler {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel aiColorLbl;
+    private javax.swing.JLabel aiDifficultyLbl;
+    private javax.swing.JLabel aiDifficultyTitleLbl;
     private javax.swing.JLabel aiLbl;
     private javax.swing.JLabel blackPiecesLbl;
     private javax.swing.JLabel blackPiecesNumberLbl;
+    private javax.swing.JButton easyBtn;
+    private javax.swing.JButton extremeBtn;
+    private javax.swing.JButton hardBtn;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
@@ -752,6 +834,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton mediumBtn;
     private javax.swing.JLabel moveLbl;
     private javax.swing.JButton newGameBtn;
     private javax.swing.JLabel opponentLbl;

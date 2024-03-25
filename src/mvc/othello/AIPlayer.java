@@ -26,6 +26,8 @@ public class AIPlayer {
                 return getMediumMove(board, legalMoves);
             case Constants.AI_HARD:
                 return getHardMove(board, legalMoves);
+            case Constants.AI_EXTREME:
+                return getExtremeMove(board, legalMoves);
             default:
                 break;
         }
@@ -47,6 +49,14 @@ public class AIPlayer {
     }
     
     private Coordinate getHardMove(int[][] board, ArrayList<Coordinate> legalMoves) {
+        //looking for corner and stable pieces
+        Coordinate move = legalMoves.get(0);
+        
+        return move;
+    }
+    
+    private Coordinate getExtremeMove(int[][] board, ArrayList<Coordinate> legalMoves) {
+        //hard ai, but it uses minimax to look multiple moves ahead
         Coordinate move = legalMoves.get(0);
         
         return move;
@@ -60,7 +70,7 @@ public class AIPlayer {
         this.color = playerColor;
     }
     
-    public String getDiffuculty() {
+    public String getDifficulty() {
         return this.difficulty;
     }
     

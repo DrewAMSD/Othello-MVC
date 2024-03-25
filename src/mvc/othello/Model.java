@@ -50,6 +50,7 @@ public class Model implements MessageHandler {
     //ai
     this.mvcMessaging.subscribe("view:switchPlayer", this);
     this.mvcMessaging.subscribe("view:switchAiColor", this);
+    this.mvcMessaging.subscribe("view:difficultyBtnClicked", this);
     
     this.newGame();
   }
@@ -294,6 +295,17 @@ public class Model implements MessageHandler {
                 this.mvcMessaging.notify("model:aiColorChanged",this.aiPlayer.getColor());
                 if (playingAI) {
                     this.newGame();
+                }
+                
+                break;
+            }
+            
+            case "view:difficultyBtnClicked": {
+                String difficulty = (String) messagePayload;
+                if (!this.aiPlayer.getDifficulty().equals(difficulty)) {
+                    this.aiPlayer.changeDifficulty(difficulty);
+                    this.newGame();
+                    this.mvcMessaging.notify("model:aiDifficultyChanged", this.aiPlayer.getDifficulty());
                 }
                 
                 break;
