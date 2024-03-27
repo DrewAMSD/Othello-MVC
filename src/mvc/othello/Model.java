@@ -262,7 +262,7 @@ public class Model implements MessageHandler {
                         if (moveMade.isEqualTo(legalMove)) {
                             makeMove(moveMade);
                             //ai makes move if playing ai and its their turn after move is made
-                            if (playingAI && this.whoseMove == aiPlayer.getColor()) {
+                            while (playingAI && this.whoseMove == aiPlayer.getColor()) {
                                 Coordinate aiMove = aiPlayer.getMove(board, legalMoves);
                                 makeMove(aiMove);
                             }
