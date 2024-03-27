@@ -25,6 +25,10 @@ public class Constants {
     public static final String AI_MEDIUM = "Medium";
     public static final String AI_HARD = "Hard";
     public static final String AI_EXTREME = "Extreme";
+    //ai stability for evaluate
+    public static final int STABILITY_STABLE = -6;
+    public static final int STABILITY_UNSTABLE = -7;
+    public static final int STABILITY_OPPOSITE_TILE = -8;
     
     //game states
     public static final int IN_PLAY = -2;
@@ -38,9 +42,9 @@ public class Constants {
                             new Coordinate(0, 1),
                             new Coordinate(0, -1),
                             new Coordinate(1, 1),
+                            new Coordinate(-1, -1),
                             new Coordinate(1, -1),
-                            new Coordinate(-1, 1),
-                            new Coordinate(-1, -1) };
+                            new Coordinate(-1, 1) };
     
     //image icons
     public static final ImageIcon EMPTY_ICON = new ImageIcon("/home/drewam/Desktop/Coding/Othello-MVC/src/mvc/othello/emptyIcon.png");

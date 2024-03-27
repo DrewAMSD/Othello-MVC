@@ -186,6 +186,7 @@ public class Model implements MessageHandler {
     }
     
     private int getWinner() {
+        this.countPieces();
         if (blackPieces > whitePieces) {
             return Constants.BLACK_WINS;
         }
@@ -209,8 +210,10 @@ public class Model implements MessageHandler {
     
     private void updateGameStatusUI() {
         if (gameStatus == Constants.IN_PLAY) {
-            this.mvcMessaging.notify("model:legalMovesChanged", this.legalMoves);
-            this.mvcMessaging.notify("model:moveChanged", this.whoseMove);
+            if (!(playingAI && this.whoseMove == aiPlayer.getColor())) {
+                //only show legal moves to real player, unnecessary to display ai's possible moves
+                this.mvcMessaging.notify("model:legalMovesChanged", this.legalMoves);
+            }
         } else {
             this.mvcMessaging.notify("model:gameOver", this.gameStatus);
         }
@@ -260,12 +263,8 @@ public class Model implements MessageHandler {
                             makeMove(moveMade);
                             //ai makes move if playing ai and its their turn after move is made
                             if (playingAI && this.whoseMove == aiPlayer.getColor()) {
-                                try {
-                                    Thread.sleep(500);
-                                } catch (InterruptedException e) {
-                                    Thread.currentThread().interrupt();
-                                }
-                                makeMove(aiPlayer.getMove(board, legalMoves));
+                                Coordinate aiMove = aiPlayer.getMove(board, legalMoves);
+                                makeMove(aiMove);
                             }
                             break;
                         }
@@ -303,7 +302,9 @@ public class Model implements MessageHandler {
                 String difficulty = (String) messagePayload;
                 if (!this.aiPlayer.getDifficulty().equals(difficulty)) {
                     this.aiPlayer.changeDifficulty(difficulty);
-                    this.newGame();
+                    if (playingAI) {
+                        this.newGame();
+                    }
                     this.mvcMessaging.notify("model:aiDifficultyChanged", this.aiPlayer.getDifficulty());
                 }
                 
