@@ -25,10 +25,6 @@ public class Constants {
     public static final String AI_MEDIUM = "Medium";
     public static final String AI_HARD = "Hard";
     public static final String AI_EXTREME = "Extreme";
-    //ai stability for evaluate
-    public static final int STABILITY_STABLE = -6;
-    public static final int STABILITY_UNSTABLE = -7;
-    public static final int STABILITY_OPPOSITE_TILE = -8;
     
     //game states
     public static final int IN_PLAY = -2;
@@ -36,7 +32,7 @@ public class Constants {
     public static final int BLACK_WINS = -4;
     public static final int DRAW = -5;
     
-    //directions for stepping through the board
+    //directions for stepping through the board ***Do not change the order of elements in the array
     public static final Coordinate[] DIRECTIONS = {new Coordinate(1, 0), 
                             new Coordinate(-1,0),
                             new Coordinate(0, 1),
@@ -46,7 +42,7 @@ public class Constants {
                             new Coordinate(1, -1),
                             new Coordinate(-1, 1) };
     
-    //image icons
+    //image icons ***filepath needs to be updated on a device by device basis
     public static final ImageIcon EMPTY_ICON = new ImageIcon("/home/drewam/Desktop/Coding/Othello-MVC/src/mvc/othello/emptyIcon.png");
     public static final ImageIcon BLACK_ICON = new ImageIcon("/home/drewam/Desktop/Coding/Othello-MVC/src/mvc/othello/blackIcon.png");
     public static final ImageIcon WHITE_ICON = new ImageIcon("/home/drewam/Desktop/Coding/Othello-MVC/src/mvc/othello/whiteIcon.png");

@@ -187,6 +187,40 @@ public class AIPlayer {
         return true;
     }
     
+    private int edgesControlled(int[][] board, int playerColor) {
+        int edgesControlled = 0;
+        Coordinate east = Constants.DIRECTIONS[2];
+        Coordinate south = Constants.DIRECTIONS[0];
+        Coordinate loc;
+        Coordinate direction;
+        for (int i = 0; i < 4; i++) {
+            if (i < 2) {
+                loc = new Coordinate(0, 0);
+                direction = (i == 0 ? east : south);
+            } else if (i == 2) {
+                loc = new Coordinate(Constants.BOARD_SIZE-1, 0);
+                direction = east;
+            } else {
+                loc = new Coordinate(0, Constants.BOARD_SIZE-1);
+                direction = south;
+            }
+            boolean ownsEdge = true;
+            while (loc.isInsideBoard()) {
+                int curTile = board[loc.getRow()][loc.getCol()];
+                if (curTile == playerColor) {
+                    loc.add(direction);
+                    continue;
+                }
+                ownsEdge = false;
+                break;
+            }
+            if (ownsEdge) {
+                edgesControlled++;
+            }
+        }
+        return edgesControlled;
+    }
+    
     private int evaluate(int[][] board, int playerColor) {
         //check for corner pieces and for stable pieces(pieces that can't be taken)
         int eval = 0;
@@ -194,17 +228,20 @@ public class AIPlayer {
             for (int col = 0; col < Constants.BOARD_SIZE; col++) {
                 int tile = board[row][col];
                 if (tile != Constants.EMPTY) {
-                    if (isCorner(row, col)) {
+                    if (this.isCorner(row, col)) {
                         eval += (tile == playerColor ? 100 : -100);
-                    } else if (isStable(board, row, col, playerColor)) {
+                    } else if (this.isStable(board, row, col, playerColor)) {
                         eval += (tile == playerColor ? 100 : -100);
-                    }/* else if (this.difficulty.equals(Constants.AI_HARD)) {
+                    } else if (this.difficulty.equals(Constants.AI_HARD)) {
                         //since hard doesn't minimax, it'll take the move with the highest pieces if it doesn't find corner or stable pieces
-                        eval += (tile == playerColor ? 100 : -100);
-                    }*/
+                        eval += (tile == playerColor ? 1 : -1);
+                    }
                 }
             }
         }
+        /*//test eval for playing more for edges
+        eval += (edgesControlled(board, playerColor) * 10);
+        eval -= (edgesControlled(board, playerColor*-1) * 10); */
         return eval;
     }
     
@@ -213,7 +250,7 @@ public class AIPlayer {
         Coordinate move = null;
         int bestEval = Integer.MIN_VALUE;
         for (Coordinate legalMove : legalMoves) {
-            int[][] tempBoard = cloneBoard(board);
+            int[][] tempBoard = this.cloneBoard(board);
             this.makeMoveAI(tempBoard, legalMove, this.color);
             int eval = this.evaluate(tempBoard, this.color); //difference between medium and hard
             if (eval > bestEval) {
