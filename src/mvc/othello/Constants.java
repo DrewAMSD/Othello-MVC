@@ -43,8 +43,8 @@ public class Constants {
                             new Coordinate(-1, 1) };
     
     //image icons ***filepath needs to be updated on a device by device basis
-    public static final ImageIcon EMPTY_ICON = new ImageIcon("/home/drewam/Desktop/Coding/Othello-MVC/src/mvc/othello/emptyIcon.png");
-    public static final ImageIcon BLACK_ICON = new ImageIcon("/home/drewam/Desktop/Coding/Othello-MVC/src/mvc/othello/blackIcon.png");
-    public static final ImageIcon WHITE_ICON = new ImageIcon("/home/drewam/Desktop/Coding/Othello-MVC/src/mvc/othello/whiteIcon.png");
-    public static final ImageIcon LEGAL_MOVE_ICON = new ImageIcon("/home/drewam/Desktop/Coding/Othello-MVC/src/mvc/othello/legalMoveIcon.png");
+    public static final ImageIcon EMPTY_ICON = new ImageIcon("C:\\Users\\drewa\\Projects\\Othello-MVC\\src\\mvc\\othello\\images\\emptyIcon.png");
+    public static final ImageIcon BLACK_ICON = new ImageIcon("C:\\Users\\drewa\\Projects\\Othello-MVC\\src\\mvc\\othello\\images\\blackIcon.png");
+    public static final ImageIcon WHITE_ICON = new ImageIcon("C:\\Users\\drewa\\Projects\\Othello-MVC\\src\\mvc\\othello\\images\\whiteIcon.png");
+    public static final ImageIcon LEGAL_MOVE_ICON = new ImageIcon("C:\\Users\\drewa\\Projects\\Othello-MVC\\src\\mvc\\othello\\images\\legalMoveIcon.png");
 }

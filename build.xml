@@ -10,6 +10,8 @@
 <project name="Othello-MVC" default="default" basedir=".">
     <description>Builds, tests, and runs the project Othello-MVC.</description>
     <import file="nbproject/build-impl.xml"/>
+    <javac srcdir="src" destdir="build/classes" source="1.22" target="1.22"/>
+
     <!--
 
     There exist several targets which are by default empty and which can be 

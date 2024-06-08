@@ -14,7 +14,7 @@ public class View extends javax.swing.JFrame implements MessageHandler {
 
   private final Messenger mvcMessaging;
   private javax.swing.JButton[][] panel;
-  
+
   /**
    * Creates a new view
    * @param messages mvcMessaging object
@@ -43,6 +43,10 @@ public class View extends javax.swing.JFrame implements MessageHandler {
                     });
         }
     }
+    
+     this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+     this.setLocationRelativeTo(null);
+     this.setTitle("Othello");
   }
   
    /**
