@@ -213,6 +213,7 @@ public class Model implements MessageHandler {
             if (!(playingAI && this.whoseMove == aiPlayer.getColor())) {
                 //only show legal moves to real player, unnecessary to display ai's possible moves
                 this.mvcMessaging.notify("model:legalMovesChanged", this.legalMoves);
+                this.mvcMessaging.notify("model:moveChanged", this.whoseMove);
             }
         } else {
             this.mvcMessaging.notify("model:gameOver", this.gameStatus);
